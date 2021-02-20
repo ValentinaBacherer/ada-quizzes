@@ -32,3 +32,44 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# APUNTES VALENTINA
+
+## INSTALACIONES
+
+### ESLINT
+
+yarn add eslint eslint-config-get-off-my-lawn --dev
+agregar al package json
+
+"eslintConfig": {
+"extends": [
+"get-off-my-lawn",
+"prettier"
+],
+"rules": {
+"react/display-name": 0,
+"react/react-in-jsx-scope": 0,
+"react/jsx-no-literals": 0,
+"no-param-reassign": 0,
+"node/no-unpublished-require": 0,
+"jsx-a11y/anchor-is-valid": 0,
+"no-unused-vars": 0
+}
+}
+
+npm install --save-dev husky@4 lint-staged prettier
+
+agregar al package json:
+
+"lint-staged": {
+"pages/**/\*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write",
+"components/**/\*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
+},
+"husky": {
+"hooks": {
+"pre-commit": "lint-staged"
+}
+},
+
+### CHAKRA
