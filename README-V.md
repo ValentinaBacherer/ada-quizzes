@@ -73,3 +73,15 @@ agregar al package json:
 },
 
 ### CHAKRA
+
+npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
+
+npm install react-icons --save
+
+npm install react-router-dom
+
+# Preguntas Gabriel
+
+Llamado a la API de questions desde quizlist para que reciba el parametro?
+
+quiz-id/[id] Como manejo de forma individual cada value?

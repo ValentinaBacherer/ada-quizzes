@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+button,
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}

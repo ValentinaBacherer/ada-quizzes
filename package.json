@@ -38,9 +38,13 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
     "framer-motion": "^3.6.2",
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.17",
     "next": "10.0.7",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "eslint": "^7.20.0",
