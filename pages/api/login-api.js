@@ -12,19 +12,19 @@ export default async (req, res) => {
       name: req.body.user,
       password: req.body.password,
     });
-    const users = await cursor.toArray();
+    const user = await cursor.toArray();
 
-    if (users.length) {
+    if (user.length) {
       res.status(200).json({
         access: true,
         message: "User found",
-        users,
+        user,
       });
     } else {
       res.status(200).json({
         access: false,
         message: "User not found",
-        users,
+        user,
       });
     }
   } catch (error) {

@@ -14,10 +14,13 @@ import styles from "../styles/Home.module.css";
 
 const API = "http://localhost:3000/api";
 
-const getQuizzes = async () => {
-  console.log("En getQuizzes");
+const getUserQuizzes = async () => {
+  console.log("-> getUserQuizzes");
 
   try {
+    // TODO pasarle el userID para la busqueda
+
+    // hace FindAll por ahora
     const response = await fetch(`${API}/quiz-list-api`);
     const json = await response.json();
 
@@ -31,9 +34,15 @@ const QuizList = ({ quizzes }) => {
   const [quizList, setQuizList] = useState(quizzes ?? []);
   const router = useRouter();
 
-  const loadQuiz = (id) => {
-    // router.push(`/quiz-id/[id]`);
+  const loadUserQuizQuestions = (id) => {
+    /*
+     * TODO pasarle el quizID + userID a router.push(`/quiz-id/[id]`);
+     * o llamar a pagina(componente) con el quizList[x](userquiz)
+     */
+    console.log("-> loadUserQuizQuestions", id);
+    router.push(`/userquiz-id/${id}`);
   };
+  // TODO el link o funcion a userquizquestions
 
   return (
     <div className={styles.container}>
@@ -54,15 +63,21 @@ const QuizList = ({ quizzes }) => {
               <div
                 key={quiz._id}
                 className={styles.card}
-                onClick={() => loadQuiz(quiz._id)}
+                onClick={() => loadUserQuizQuestions(quiz.id)}
               >
                 <Link href="/">
                   <Heading mb={0} as="h3" size="lg">
                     {quiz.name}
                   </Heading>
                 </Link>
-                <CircularProgress size="90px" value={70} color="cyan.400">
-                  <CircularProgressLabel>70%</CircularProgressLabel>
+                <CircularProgress
+                  size="90px"
+                  value={quiz.progress}
+                  color={quiz.completed ? "green.400" : "cyan.400"}
+                >
+                  <CircularProgressLabel>
+                    {quiz.progress}%
+                  </CircularProgressLabel>
                 </CircularProgress>
               </div>
             );
@@ -76,13 +91,14 @@ const QuizList = ({ quizzes }) => {
 
 export default QuizList;
 
-export async function getServerSideProps() {
-  console.log("getServerSP quizlist");
-  const json = await getQuizzes();
+export async function getServerSideProps({ query }) {
+  console.log("-> getSSP quizlist", query);
+  // TODO sacar el userID del query y pasarlo a getQuizzes
+  const json = await getUserQuizzes();
 
   return {
     props: {
-      message: "otro prop",
+      message: "SSProps",
       quizzes: json.quizzes,
     },
   };

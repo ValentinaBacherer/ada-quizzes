@@ -1,9 +1,10 @@
 import { dbConnection } from "../../src/dbConnection";
 
-const collectionName = "testQuiz";
+const collectionName = "userQuiz";
 
 export default async (req, res) => {
-  console.log("API quizz-list");
+  console.log("API quizz-list-api", req.body);
+  // TODO buscar en userquiz con idUser y si no encuentra crearlos de testQuiz
 
   try {
     const db = await dbConnection();

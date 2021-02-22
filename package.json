@@ -21,6 +21,7 @@
       "jsx-a11y/anchor-is-valid": 0,
       "get-off-my-lawn/prefer-arrow-functions": 0,
       "no-unused-vars": 0,
+      "no-warning-comments": 0,
       "no-console": 0
     }
   },

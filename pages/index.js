@@ -14,15 +14,17 @@ export default function Home() {
   const [errorText, setErrorText] = useState("");
   const router = useRouter();
 
-  const handleNameChange = (e) => {
-    setUserName(e.target.value);
+  const handleAccessError = () => {
+    setUserPassword("");
+    setErrorText("Error de acceso, intentelo nuevamente.");
   };
-
-  const handlePasswordChange = (e) => {
-    setUserPassword(e.target.value);
+  const handleAccessAllowed = (userID) => {
+    console.log("-> handleAccessAllowed", userID);
+    // TODO send bkend userID
+    router.push("/userquizlist");
   };
   const handleLogin = async () => {
-    console.log("En handleLogin");
+    console.log("-> handleLogin");
     const response = await fetch(`${API}/login-api`, {
       body: JSON.stringify({
         password: userPassword,
@@ -31,17 +33,16 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "PUT",
+      method: "POST",
     });
     const json = await response.json();
 
-    console.log(json);
+    console.log("handleLogin response:", json);
 
     if (json.access) {
-      router.push("/quizlist");
+      handleAccessAllowed(json.user[0].id);
     } else {
-      setUserPassword("");
-      setErrorText("Error de acceso, intentelo nuevamente.");
+      handleAccessError();
     }
   };
 
@@ -64,14 +65,14 @@ export default function Home() {
             </Text>
             <Input
               name="user-name"
-              onChange={handleNameChange}
+              onChange={(e) => setUserName(e.target.value)}
               placeholder="Username"
               type="text"
               value={userName}
             ></Input>
             <Input
               name="user-password"
-              onChange={handlePasswordChange}
+              onChange={(e) => setUserPassword(e.target.value)}
               placeholder="Password"
               type="password"
               value={userPassword}

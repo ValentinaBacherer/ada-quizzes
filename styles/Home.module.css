@@ -100,6 +100,12 @@
   margin-top: 1rem;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .card {
   margin: 1rem;
   flex-basis: 45%;
@@ -163,4 +169,8 @@
   .logincard {
     width: 95%;
   }
+}
+.marks {
+  width: 20px;
+  margin-right: 1rem;
 }

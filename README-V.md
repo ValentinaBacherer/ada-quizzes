@@ -85,3 +85,16 @@ npm install react-router-dom
 Llamado a la API de questions desde quizlist para que reciba el parametro?
 
 quiz-id/[id] Como manejo de forma individual cada value?
+
+# mentory GB
+
+- currying
+
+- deberian ser componentes, un componente de respuestas y el otro componente de preguntas que por dentro cada uno se encarga de actualizar lo que necesita.
+
+- return question.answers.find((item) => item.isSelected === true)?.id;
+  por si es que no retorna nada, no busca el id, para que no de error
+
+- recibe UNA FUNCION QUE DEVUELVE OTRA FUNCION
+  const handleChange = (questionId) => (answerId) => {
+  console.log('-> handleChange', answerId);}
