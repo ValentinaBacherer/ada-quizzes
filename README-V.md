@@ -98,3 +98,6 @@ quiz-id/[id] Como manejo de forma individual cada value?
 - recibe UNA FUNCION QUE DEVUELVE OTRA FUNCION
   const handleChange = (questionId) => (answerId) => {
   console.log('-> handleChange', answerId);}
+- almacenar en un objeto mas sencillo, pasarle ese objeto a la api y que vea como actualiza
+
+- en vez de poner una imagen vacia, puedo poner, renderizar un div que ocupe ese espacio

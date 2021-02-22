@@ -26,14 +26,18 @@ const UserQuiz = ({ quizA }) => {
   const userQuiz = quizA[0];
   const router = useRouter();
 
-  console.log("Quiz Render activeQuiz state :", activeQuiz);
+  console.log(
+    "Quiz Render activeQuiz,answersObject state :",
+    activeQuiz,
+    answersObject
+  );
 
   const updateActiveQuiz = async () => {
     console.log("-> updateActiveQuiz");
 
     const response = await fetch(`${API}/quiz-update-api`, {
       body: JSON.stringify({
-        activeQuiz,
+        answersObject,
         userquizId: userQuiz.id,
       }),
       headers: {
@@ -45,9 +49,16 @@ const UserQuiz = ({ quizA }) => {
 
     console.log("resultado updateActiveQuiz", json);
   };
+
   const selectedValue = (question) => {
+    console.log(
+      "-> selectedValue",
+      question.answers.find((item) => item.isSelected === true)?.id
+    );
+
     return question.answers.find((item) => item.isSelected === true)?.id;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("-> handleSubmit");
@@ -57,19 +68,19 @@ const UserQuiz = ({ quizA }) => {
     // TODO que vuelva a la vista de (userID) quizlist
     router.push("/userquizlist"); // <Link as='/quizlist/U01' href='/quizlist/[]'>
   };
+  // una funcion que deveuelve una funcion
   const handleChange = (questionId) => (answerId) => {
-    console.log("-> handleChange", answerId);
+    console.log("-> handleChange", answerId, questionId);
     // dinamic object properties
-
-    console.log(questionId, answerId);
-
-    // setAnswersObject({
-    //   ...answersObject,
-    //   [questionId]: answersObject,
-    // });
+    setAnswersObject((oldAnswersObject) => {
+      return {
+        ...oldAnswersObject,
+        [questionId]: answerId,
+      };
+    });
   };
 
-  if (!userQuiz) {
+  if (!activeQuiz) {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -82,7 +93,6 @@ const UserQuiz = ({ quizA }) => {
     );
   }
 
-  // TODO icono preguntas falsas
   return (
     <div className={styles.container}>
       <Head>
@@ -91,19 +101,19 @@ const UserQuiz = ({ quizA }) => {
       </Head>
       <div className={styles.header}>
         <DrawerMenu />
-        <Heading>{userQuiz.name}</Heading>
+        <Heading>{activeQuiz.name}</Heading>
         <div></div>
       </div>
 
       <main className={styles.main}>
-        {!userQuiz.completed ? (
+        {!activeQuiz.completed ? (
           <Text>Lee bien cada pregunta y selecciona una respuesta:</Text>
         ) : (
-          <Text>Revisa las respuestas del quiz {userQuiz.name}:</Text>
+          <Text>Revisa las respuestas del quiz {activeQuiz.name}:</Text>
         )}
         <div className={styles.grid}>
           <FormControl as="fieldset">
-            {userQuiz.questions.map((question, index) => {
+            {activeQuiz.questions.map((question, index) => {
               return (
                 <div key={question.id} className={styles.logincard}>
                   <FormLabel as="legend" mb={4}>
@@ -113,12 +123,10 @@ const UserQuiz = ({ quizA }) => {
                     type="text"
                     name={question.id}
                     onChange={handleChange(question.id)}
-                    value={selectedValue(question)}
+                    value={selectedValue(question)} // default value?
                   >
                     <Stack direction="column">
                       {question.answers.map((answer) => {
-                        const correctAnswer =
-                          answer.isSelected && answer.isCorrect;
                         let icon = (
                           <img
                             src="/neutral.png"
