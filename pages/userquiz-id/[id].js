@@ -23,7 +23,6 @@ const API = "http://localhost:3000/api";
 const UserQuiz = ({ quizA }) => {
   const [activeQuiz, setActiveQuiz] = useState(quizA[0] ?? {});
   const [answersObject, setAnswersObject] = useState({});
-  const userQuiz = quizA[0];
   const router = useRouter();
 
   console.log(
@@ -37,8 +36,9 @@ const UserQuiz = ({ quizA }) => {
 
     const response = await fetch(`${API}/quiz-update-api`, {
       body: JSON.stringify({
+        activeQuiz,
         answersObject,
-        userquizId: userQuiz.id,
+        userquizId: activeQuiz.id,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -62,20 +62,20 @@ const UserQuiz = ({ quizA }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("-> handleSubmit");
-    // TODO que actualice el registro de la bdd userquiz
+
     updateActiveQuiz();
 
     // TODO que vuelva a la vista de (userID) quizlist
     router.push("/userquizlist"); // <Link as='/quizlist/U01' href='/quizlist/[]'>
   };
-  // una funcion que deveuelve una funcion
+  // una funcion que devuelve una funcion
   const handleChange = (questionId) => (answerId) => {
     console.log("-> handleChange", answerId, questionId);
-    // dinamic object properties
+
     setAnswersObject((oldAnswersObject) => {
       return {
         ...oldAnswersObject,
-        [questionId]: answerId,
+        [questionId]: answerId, // dinamic object property
       };
     });
   };
@@ -109,7 +109,7 @@ const UserQuiz = ({ quizA }) => {
         {!activeQuiz.completed ? (
           <Text>Lee bien cada pregunta y selecciona una respuesta:</Text>
         ) : (
-          <Text>Revisa las respuestas del quiz {activeQuiz.name}:</Text>
+          <Text>Respuestas evaluadas del Ada Quiz {activeQuiz.name}:</Text>
         )}
         <div className={styles.grid}>
           <FormControl as="fieldset">
@@ -155,7 +155,7 @@ const UserQuiz = ({ quizA }) => {
 
                         return (
                           <div key={answer.id} className={styles.flex}>
-                            {userQuiz.completed && question.completed && icon}
+                            {activeQuiz.completed && question.completed && icon}
 
                             <Radio key={answer.id} value={answer.id}>
                               {answer.description}
@@ -168,7 +168,7 @@ const UserQuiz = ({ quizA }) => {
                 </div>
               );
             })}
-            {!userQuiz.completed ? (
+            {!activeQuiz.completed ? (
               <>
                 <FormHelperText>
                   Envia las respuesta solo si estas seguro.
