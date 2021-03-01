@@ -46,10 +46,6 @@ const QuizList = ({ quizzes }) => {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Ada Quizzes</title>
-        <link rel="icon" href="/adaicon.ico" />
-      </Head>
       <div className={styles.header}>
         <DrawerMenu />
         <Heading>Lista de Quizzes</Heading>

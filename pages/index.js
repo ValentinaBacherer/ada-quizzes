@@ -48,10 +48,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Ada Quizzes</title>
-        <link rel="icon" href="/adaicon.ico" />
-      </Head>
       <main className={styles.loginmain}>
         <div className={styles.logincard}>
           <Heading as="h3" size="lg">
@@ -69,14 +65,14 @@ export default function Home() {
               placeholder="Username"
               type="text"
               value={userName}
-            ></Input>
+            />
             <Input
               name="user-password"
               onChange={(e) => setUserPassword(e.target.value)}
               placeholder="Password"
               type="password"
               value={userPassword}
-            ></Input>
+            />
             <Text>{errorText}</Text>
             <Button colorScheme="cyan" onClick={handleLogin}>
               Log in
