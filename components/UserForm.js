@@ -2,24 +2,26 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 
-// formId to modify , userForm an object with user data
-// for new, to create a new one
-const Form = ({ formId, userForm, forNewUser = true }) => {
+/*
+ * formId to modify , userForm an object with user data
+ * for new, to create a new one
+ */
+const UserForm = ({ formId, userForm, forNewUser = true }) => {
   const router = useRouter();
   const contentType = "application/json";
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
-    name: userForm.name,
-    password: userForm.password,
-    organization: userForm.organization,
     age: userForm.age,
-    poddy_trained: petForm.poddy_trained,
-    languages: userForm.languages,
-    image_url: userForm.image_url,
-    likes: userForm.likes,
     dislikes: userForm.dislikes,
+    image_url: userForm.image_url,
+    languages: userForm.languages,
+    likes: userForm.likes,
+    name: userForm.name,
+    organization: userForm.organization,
+    password: userForm.password,
+    ada_student: userForm.poddy_trained,
   });
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -51,15 +53,15 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
   };
 
   /* The POST method adds a new entry in the mongodb database. */
-  const postData = async (form) => {
+  const postData = async (formPost) => {
     try {
       const res = await fetch("/api/users", {
-        method: "POST",
+        body: JSON.stringify(formPost),
         headers: {
           Accept: contentType,
           "Content-Type": contentType,
         },
-        body: JSON.stringify(form),
+        method: "POST",
       });
 
       // Throw error with status code in case Fetch API req failed
@@ -69,14 +71,13 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
 
       router.push("/");
     } catch (error) {
-      setMessage("Failed to add pet");
+      setMessage("Failed to add user");
     }
   };
 
   const handleChange = (e) => {
     const target = e.target;
-    const value =
-      target.name === "poddy_trained" ? target.checked : target.value;
+    const value = target.name === "ada_student" ? target.checked : target.value;
     /* the field name*/
     const name = target.name;
 
@@ -86,24 +87,29 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
     });
   };
 
+  /* Makes sure user info is filled for  name, password, species, and image url*/
+  const formValidate = () => {
+    const err = {};
+
+    if (!form.name) err.name = "Name is required";
+
+    if (!form.password) err.password = "Password is required";
+
+    if (!form.languages) err.languages = "Languages is required";
+
+    if (!form.image_url) err.image_url = "Image URL is required";
+
+    return err;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const errs = formValidate();
+
     if (Object.keys(errs).length === 0) {
-      forNewPet ? postData(form) : putData(form);
+      forNewUser ? postData(form) : putData(form);
     } else {
       setErrors({ errs });
     }
-  };
-
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
-  const formValidate = () => {
-    let err = {};
-    if (!form.name) err.name = "Name is required";
-    if (!form.owner_name) err.owner_name = "Owner is required";
-    if (!form.species) err.species = "Species is required";
-    if (!form.image_url) err.image_url = "Image URL is required";
-    return err;
   };
 
   return (
@@ -111,84 +117,84 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
       <form id={formId} onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
-          type="text"
           maxLength="20"
           name="name"
+          onChange={handleChange}
+          required
+          type="text"
           value={form.name}
-          onChange={handleChange}
-          required
         />
 
-        <label htmlFor="owner_name">Owner</label>
+        <label htmlFor="password">Password</label>
         <input
-          type="text"
           maxLength="20"
-          name="owner_name"
-          value={form.owner_name}
+          name="password"
           onChange={handleChange}
           required
+          type="text"
+          value={form.password}
         />
 
-        <label htmlFor="species">Species</label>
+        <label htmlFor="organization">Organization</label>
         <input
-          type="text"
           maxLength="30"
-          name="species"
-          value={form.species}
+          name="organization"
           onChange={handleChange}
           required
+          type="text"
+          value={form.organization}
         />
 
         <label htmlFor="age">Age</label>
         <input
-          type="number"
           name="age"
+          onChange={handleChange}
+          type="number"
           value={form.age}
-          onChange={handleChange}
         />
 
-        <label htmlFor="poddy_trained">Potty Trained</label>
+        <label htmlFor="ada_student">Ada Student</label>
         <input
-          type="checkbox"
-          name="poddy_trained"
-          checked={form.poddy_trained}
+          checked={form.ada_student}
+          name="ada_student"
           onChange={handleChange}
+          type="checkbox"
         />
 
-        <label htmlFor="diet">Diet</label>
+        <label htmlFor="languages">Languages</label>
         <textarea
-          name="diet"
           maxLength="60"
-          value={form.diet}
+          name="languages"
           onChange={handleChange}
+          value={form.diet}
         />
 
         <label htmlFor="image_url">Image URL</label>
         <input
-          type="url"
           name="image_url"
-          value={form.image_url}
           onChange={handleChange}
           required
+          type="url"
+          value={form.image_url}
         />
 
         <label htmlFor="likes">Likes</label>
         <textarea
-          name="likes"
           maxLength="60"
-          value={form.likes}
+          name="likes"
           onChange={handleChange}
+          value={form.likes}
         />
 
         <label htmlFor="dislikes">Dislikes</label>
         <textarea
-          name="dislikes"
           maxLength="60"
-          value={form.dislikes}
+          name="dislikes"
           onChange={handleChange}
+          value={form.dislikes}
         />
 
-        <button type="submit" className="btn">
+        <button className="btn" type="submit">
           Submit
         </button>
       </form>
@@ -202,4 +208,4 @@ const Form = ({ formId, userForm, forNewUser = true }) => {
   );
 };
 
-export default Form;
+export default UserForm;

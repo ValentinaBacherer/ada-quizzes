@@ -1,3 +1,5 @@
+import "../css/style.css";
+import "../css/form.css";
 import "../styles/globals.css";
 import Head from "next/head";
 import { ChakraProvider } from "@chakra-ui/react";
