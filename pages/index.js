@@ -15,7 +15,6 @@ export default function Home() {
   const router = useRouter();
 
   const handleAccessError = () => {
-    setUserPassword("");
     setErrorText("Error de acceso, intentelo nuevamente.");
   };
   const handleAccessAllowed = (userID) => {

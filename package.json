@@ -22,7 +22,9 @@
       "get-off-my-lawn/prefer-arrow-functions": 0,
       "no-unused-vars": 0,
       "no-warning-comments": 0,
-      "no-console": 0
+      "no-console": 0,
+      "camelcase": 0,
+      "react/no-array-index-key": 0
     }
   },
   "lint-staged": {

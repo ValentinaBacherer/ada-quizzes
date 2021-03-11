@@ -2,7 +2,7 @@ const {MongoClient} = require('mongodb');
 
 const url = 'mongodb://localhost:27017';
 // Database Name
-const dbName = 'test';
+const dbName = 'test';I
 
 // promisify,  dbConnection retorna una promesa
 export const dbConnection = () =>

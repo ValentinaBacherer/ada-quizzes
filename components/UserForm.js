@@ -1,3 +1,5 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-unused-expressions */
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
@@ -13,6 +15,7 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
   const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
+    ada_student: userForm.ada_student,
     age: userForm.age,
     dislikes: userForm.dislikes,
     image_url: userForm.image_url,
@@ -21,7 +24,6 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
     name: userForm.name,
     organization: userForm.organization,
     password: userForm.password,
-    ada_student: userForm.poddy_trained,
   });
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -30,12 +32,12 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
 
     try {
       const res = await fetch(`/api/users/${id}`, {
-        method: "PUT",
+        body: JSON.stringify(formPut),
         headers: {
           Accept: contentType,
           "Content-Type": contentType,
         },
-        body: JSON.stringify(formPut),
+        method: "PUT",
       });
 
       // Throw error with status code in case Fetch API req failed
@@ -46,7 +48,7 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
       const { data } = await res.json();
 
       mutate(`/api/users/${id}`, data, false); // Update the local data without a revalidation
-      router.push("/");
+      router.push("/users");
     } catch (error) {
       setMessage("Failed to update user");
     }
@@ -69,7 +71,7 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
         throw new Error(res.status);
       }
 
-      router.push("/");
+      router.push("/users");
     } catch (error) {
       setMessage("Failed to add user");
     }
@@ -166,7 +168,7 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
           maxLength="60"
           name="languages"
           onChange={handleChange}
-          value={form.diet}
+          value={form.languages}
         />
 
         <label htmlFor="image_url">Image URL</label>

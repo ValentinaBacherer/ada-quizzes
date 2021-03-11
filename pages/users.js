@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import Link from "next/link";
 
 import dbConnect from "../utils/dbConnect";

@@ -28,7 +28,7 @@ const EditUser = () => {
     age: user.age,
     dislikes: user.dislikes,
     image_url: user.image_url,
-    lenguages: user.languages,
+    languages: user.languages,
     likes: user.likes,
     name: user.name,
     organization: user.organization,
@@ -36,7 +36,7 @@ const EditUser = () => {
   };
 
   return (
-    <UserForm forNewUser={false} formId="edit-pet-form" userForm={userForm} />
+    <UserForm forNewUser={false} formId="edit-user-form" userForm={userForm} />
   );
 };
 

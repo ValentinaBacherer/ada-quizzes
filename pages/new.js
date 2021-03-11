@@ -4,8 +4,8 @@ const NewUser = () => {
   // define an empty object
 
   const userForm = {
-    age: 0,
     ada_student: false,
+    age: 0,
     dislikes: [],
     image_url: "",
     languages: [],

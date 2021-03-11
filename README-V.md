@@ -37,6 +37,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## INSTALACIONES
 
+### NEXT
+
+npx create-next-app
+
 ### ESLINT
 
 yarn add eslint eslint-config-get-off-my-lawn --dev
@@ -54,7 +58,11 @@ agregar al package json
 "no-param-reassign": 0,
 "node/no-unpublished-require": 0,
 "jsx-a11y/anchor-is-valid": 0,
-"no-unused-vars": 0
+"no-unused-vars": 0,
+"no-console": 0,
+"camelcase": 0,
+"react/no-array-index-key": 0,
+"eslint-comments/disable-enable-pair": 0
 }
 }
 
@@ -72,23 +80,38 @@ agregar al package json:
 }
 },
 
+debe ser version 4 de husky porque sino no funciona por problema con git-hooks
+
 ### CHAKRA
 
 npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
 
 npm install react-icons --save
 
+### REACT
+
 npm install react-router-dom
 
-# Preguntas Gabriel
+instal swf swr.vercel.app
+SWR is a React Hooks library for remote data fetching.
 
-Llamado a la API de questions desde quizlist para que reciba el parametro?
+yarn add swr
 
-quiz-id/[id] Como manejo de forma individual cada value?
+### MONGO
+
+npm install mongodb --save
+
+### MONGOOSE
+
+yarn add mongoose
+
+npm install mongoose --save
+
+-> Fin Instalaciones
 
 # mentory GB
 
-- currying
+- currying? see freeCodeCamp
 
 - deberian ser componentes, un componente de respuestas y el otro componente de preguntas que por dentro cada uno se encarga de actualizar lo que necesita.
 
@@ -98,6 +121,21 @@ quiz-id/[id] Como manejo de forma individual cada value?
 - recibe UNA FUNCION QUE DEVUELVE OTRA FUNCION
   const handleChange = (questionId) => (answerId) => {
   console.log('-> handleChange', answerId);}
+  currying ver en fCC
 - almacenar en un objeto mas sencillo, pasarle ese objeto a la api y que vea como actualiza
 
 - en vez de poner una imagen vacia, puedo poner, renderizar un div que ocupe ese espacio
+
+## Questions to Gabriel
+
+https://mongoosejs.com/docs/api/model.html#model_Model.findByIdAndUpdate
+The query executes if callback is passed.?
+
+porque el post de form no hace mutate() ni nada con los datos res.json()?
+
+porque el process.env.VALUE solo me aparece en el server? /api pero no para valores en el client?
+-> By default all environment variables loaded through .env.local are only available in the Node.js environment, meaning they won't be exposed to the browser.
+
+https://nextjs.org/docs/basic-features/environment-variables
+
+https://stackoverflow.com/questions/44342226/next-js-error-only-absolute-urls-are-supported

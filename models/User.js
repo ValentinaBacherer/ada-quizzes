@@ -1,5 +1,6 @@
-/* eslint-disable camelcase */
+/* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable sort-keys */
+
 import mongoose from 'mongoose';
 
 /* UserSchema will correspond to a collection in MongoDB database. */

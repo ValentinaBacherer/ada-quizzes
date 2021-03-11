@@ -1,3 +1,5 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable consistent-return */
 import dbConnect from "../../../utils/dbConnect";
 import User from "../../../models/User";
 
