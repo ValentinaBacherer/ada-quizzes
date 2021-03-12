@@ -45,20 +45,24 @@ const QuizList = ({ quizzes }) => {
   // TODO el link o funcion a userquizquestions
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
+    <div className="container">
+      <Head>
+        <title>Ada Users</title>
+        <link href="/adaicon.ico" rel="icon" />
+      </Head>
+      <div className="header">
         <DrawerMenu />
         <Heading>Lista de Quizzes</Heading>
-        <div></div>
+        <div />
       </div>
 
-      <main className={styles.main}>
-        <div className={styles.grid}>
+      <main className="main">
+        <div className="grid">
           {quizList.map((quiz) => {
             return (
               <div
+                className="card"
                 key={quiz._id}
-                className={styles.card}
                 onClick={() => loadUserQuizQuestions(quiz.id)}
               >
                 <Link href="/">

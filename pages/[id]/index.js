@@ -1,9 +1,26 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
+import {
+  Button,
+  Flex,
+  Spacer,
+  Input,
+  VStack,
+  Text,
+  Heading,
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
 
 import dbConnect from "../../utils/dbConnect";
 import User from "../../models/User";
+import Footer from "../../components/Footer";
+import { DrawerMenu } from "../../components/Drawer";
 
 /* Allows you to view user card info and delete pet card*/
 const UserPage = ({ user }) => {
@@ -23,45 +40,73 @@ const UserPage = ({ user }) => {
   };
 
   return (
-    <div key={user._id}>
-      <div className="card">
-        <img alt="user" src={user.image_url} />
-        <h5 className="user-name">{user.name}</h5>
-        <div className="main-content">
-          <p className="user-name">{user.name}</p>
-          <p className="owner">password: {user.password}</p>
+    <div className="container" key={user._id}>
+      <Head>
+        <title>Ada Users</title>
+        <link href="/adaicon.ico" rel="icon" />
+      </Head>
+      <div className="header">
+        <DrawerMenu />
+        <Heading as="h2" size="md" />
+        <div />
+      </div>
+      <div className="main">
+        <div className="grid">
+          <div className="logincard">
+            <VStack>
+              <Heading as="h2" size="lg">
+                {user.name}
+              </Heading>
+              <img alt="user" className="user-image" src={user.image_url} />
+            </VStack>
+            <VStack align="left">
+              <Text fontSize="lg">password: {user.password}</Text>
+              <Heading as="h2" size="md">
+                Likes
+              </Heading>
 
-          {/* Extra User Info: Likes and Dislikes */}
-          <div className="likes info">
-            <p className="label">Likes</p>
-            <ul>
-              {user.likes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
-          <div className="dislikes info">
-            <p className="label">Dislikes</p>
-            <ul>
-              {user.dislikes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
+              <UnorderedList>
+                {user.likes.map((data, index) => (
+                  <ListItem key={index} mx="5%">
+                    {data}{" "}
+                  </ListItem>
+                ))}
+              </UnorderedList>
 
-          <div className="btn-container">
-            <Link as={`/${user._id}/edit`} href="/[id]/edit">
-              <button className="btn edit" type="button">
-                Edit
-              </button>
-            </Link>
-            <button className="btn delete" onClick={handleDelete} type="button">
-              Delete
-            </button>
+              <Heading as="h2" size="md">
+                Dislikes
+              </Heading>
+              <UnorderedList>
+                {user.dislikes.map((data, index) => (
+                  <ListItem key={index} mx="5%">
+                    {data}
+                  </ListItem>
+                ))}
+              </UnorderedList>
+
+              <Flex>
+                <Link as={`/${user._id}/edit`} href="/[id]/edit">
+                  <Button colorScheme="cyan" width="65%">
+                    Edit
+                  </Button>
+                </Link>
+                <Spacer />
+                <Link as={`/${user._id}/edit`} href="/[id]/edit">
+                  <Button
+                    colorScheme="yellow"
+                    onClick={handleDelete}
+                    width="30%"
+                  >
+                    Delete
+                  </Button>
+                </Link>
+              </Flex>
+            </VStack>
           </div>
         </div>
+        {message && <p>{message}</p>}
       </div>
-      {message && <p>{message}</p>}
+      <Footer />
     </div>
   );
 };

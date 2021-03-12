@@ -1,55 +1,93 @@
 import Link from "next/link";
+import {
+  Button,
+  Flex,
+  Spacer,
+  Input,
+  VStack,
+  Text,
+  Heading,
+} from "@chakra-ui/react";
+import Head from "next/head";
 
 import dbConnect from "../utils/dbConnect";
 import User from "../models/User";
+import Footer from "../components/Footer";
+import { DrawerMenu } from "../components/Drawer";
 
 const UsersList = ({ users }) => (
-  <>
-    {/* Create a card for each user */}
-    {users.map((user) => (
-      <div key={user._id}>
-        <div className="card">
-          <img alt="user" src={user.image_url} />
-          <h5 className="pet-name">{user.name}</h5>
-          <div className="main-content">
-            <p className="pet-name">{user.name}</p>
-            <p className="owner">Password: {user.password}</p>
+  <div className="container">
+    <Head>
+      <title>Ada Users</title>
+      <link href="/adaicon.ico" rel="icon" />
+    </Head>
+    <div className="header">
+      <DrawerMenu />
+      <Heading>Lista de Usuarios</Heading>
+      <div />
+    </div>
+    <div className="main">
+      <Text fontSize="xl">
+        Conoce a todos los integrantes de nuestra organizacion.
+      </Text>
 
-            {/* Extra User Info: Likes and Dislikes */}
-            <div className="likes info">
-              <p className="label">Likes</p>
-              <ul>
-                {user.likes.map((data, index) => (
-                  <li key={index}>{data} </li>
-                ))}
-              </ul>
-            </div>
-            <div className="dislikes info">
-              <p className="label">Dislikes</p>
-              <ul>
-                {user.dislikes.map((data, index) => (
-                  <li key={index}>{data} </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="btn-container">
-              <Link as={`/${user._id}/edit`} href="/[id]/edit">
-                <button className="btn edit" type="button">
-                  Edit
-                </button>
-              </Link>
+      <Flex marginTop="1rem" width="100%">
+        <Spacer />
+        <Link href="/new">
+          <Heading as="h3" size="sm">
+            <a className="cursor"> Nuevo Usuario --&gt;&gt; </a>
+          </Heading>
+        </Link>
+      </Flex>
+      <div className="users-grid">
+        {/* Create a card for each user */}
+        {users.map((user) => (
+          <div className="users-card" key={user._id}>
+            <VStack>
+              <img alt="user" className="user-image" src={user.image_url} />
               <Link as={`/${user._id}`} href="/[id]">
-                <button className="btn view" type="button">
-                  View
-                </button>
+                <Heading as="h3" size="md">
+                  &lt; {user.name} &#47;&gt;
+                </Heading>
               </Link>
-            </div>
+
+              {/* Extra User Info: Likes and Dislikes
+              <div className='likes info'>
+                <p className='label'>Likes</p>
+                <ul>
+                  {user.likes.map((data, index) => (
+                    <li key={index}>{data} </li>
+                  ))}
+                </ul>
+              </div>
+              <div className='dislikes info'>
+                <p className='label'>Dislikes</p>
+                <ul>
+                  {user.dislikes.map((data, index) => (
+                    <li key={index}>{data} </li>
+                  ))}
+                </ul>
+              </div> */}
+
+              {/* <div className='users-list-btn'>
+                <Link as={`/${user._id}/edit`} href='/[id]/edit'>
+                  <Button colorScheme='cyan' width='47%'>
+                    Edit
+                  </Button>
+                </Link>
+              </div> */}
+            </VStack>
           </div>
-        </div>
+        ))}
       </div>
-    ))}
-  </>
+      <Link href="/new">
+        <Button colorScheme="cyan" width="47%">
+          Nuevo Usuario
+        </Button>
+      </Link>
+    </div>
+    <Footer />
+  </div>
 );
 
 /* Retrieves user(s) data from mongodb database */

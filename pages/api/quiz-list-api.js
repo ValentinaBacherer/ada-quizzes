@@ -1,4 +1,4 @@
-import { dbConnection } from "../../src/dbConnection";
+import dbConnect from "../../utils/dbConnect";
 
 const collectionName = "userQuiz";
 
@@ -7,7 +7,7 @@ export default async (req, res) => {
   // TODO buscar en userquiz con idUser y si no encuentra crearlos de testQuiz
 
   try {
-    const db = await dbConnection();
+    const db = await dbConnect();
     const collection = await db.collection(collectionName);
     const cursor = await collection.find({});
     const quizzes = await cursor.toArray();

@@ -57,6 +57,15 @@ export function DrawerMenu() {
                   <Link href="/userquizlist">Lista de quizzes</Link>
                 </Button>
                 <hr />
+                <Button
+                  w="90%"
+                  variant="outline"
+                  onClick={onClose}
+                  leftIcon={<BsFillPeopleFill />}
+                >
+                  <Link href="/users">Lista de usuarios</Link>
+                </Button>
+                <hr />
                 <Button variant="outline" w="90%" leftIcon={<BiLogOut />}>
                   <Link href="/">Logout</Link>
                 </Button>

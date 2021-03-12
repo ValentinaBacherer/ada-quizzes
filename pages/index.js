@@ -4,7 +4,6 @@ import { Button, Input, Stack, Text, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 import Footer from "../components/Footer";
-import styles from "../styles/Home.module.css";
 
 const API = "http://localhost:3000/api";
 
@@ -46,9 +45,13 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <main className={styles.loginmain}>
-        <div className={styles.logincard}>
+    <div className="container">
+      <Head>
+        <title>Ada Quizzes</title>
+        <link href="/adaicon.ico" rel="icon" />
+      </Head>
+      <main className="loginmain">
+        <div className="logincard">
           <Heading as="h3" size="lg">
             Ada Quizzes &rarr;
           </Heading>
