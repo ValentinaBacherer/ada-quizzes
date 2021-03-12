@@ -26,18 +26,17 @@ const UsersList = ({ users }) => (
       <Heading>Lista de Usuarios</Heading>
       <div />
     </div>
+    <Text fontSize="xl">
+      Conoce a todos los integrantes de nuestra organizacion.
+    </Text>
     <div className="main">
-      <Text fontSize="xl">
-        Conoce a todos los integrantes de nuestra organizacion.
-      </Text>
-
       <Flex marginTop="1rem" width="100%">
         <Spacer />
-        <Link href="/new">
-          <Heading as="h3" size="sm">
-            <a className="cursor"> Nuevo Usuario --&gt;&gt; </a>
+        {/* <Link href='/new'>
+          <Heading as='h3' size='sm'>
+            <a className='cursor'> Nuevo Usuario --&gt;&gt; </a>
           </Heading>
-        </Link>
+        </Link> */}
       </Flex>
       <div className="users-grid">
         {/* Create a card for each user */}

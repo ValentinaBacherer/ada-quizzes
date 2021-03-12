@@ -47,7 +47,7 @@ const UserPage = ({ user }) => {
       </Head>
       <div className="header">
         <DrawerMenu />
-        <Heading as="h2" size="md" />
+        <Heading>Datos de usuario</Heading>
         <div />
       </div>
       <div className="main">
@@ -87,7 +87,7 @@ const UserPage = ({ user }) => {
               <Flex>
                 <Link as={`/${user._id}/edit`} href="/[id]/edit">
                   <Button colorScheme="cyan" width="65%">
-                    Edit
+                    Editar
                   </Button>
                 </Link>
                 <Spacer />
@@ -97,7 +97,7 @@ const UserPage = ({ user }) => {
                     onClick={handleDelete}
                     width="30%"
                   >
-                    Delete
+                    Borrar
                   </Button>
                 </Link>
               </Flex>

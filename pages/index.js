@@ -23,24 +23,29 @@ export default function Home() {
   };
   const handleLogin = async () => {
     console.log("-> handleLogin");
-    const response = await fetch(`${API}/login-api`, {
-      body: JSON.stringify({
-        password: userPassword,
-        user: userName,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    const json = await response.json();
 
-    console.log("handleLogin response:", json);
-
-    if (json.access) {
-      handleAccessAllowed(json.user[0].id);
+    if (userName) {
+      handleAccessAllowed();
     } else {
-      handleAccessError();
+      const response = await fetch(`${API}/login-api`, {
+        body: JSON.stringify({
+          password: userPassword,
+          user: userName,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      const json = await response.json();
+
+      console.log("handleLogin response:", json);
+
+      if (json.access) {
+        handleAccessAllowed(json.user[0].id);
+      } else {
+        handleAccessError();
+      }
     }
   };
 

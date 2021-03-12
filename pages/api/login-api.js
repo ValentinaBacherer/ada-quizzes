@@ -1,4 +1,4 @@
-import { dbConnection } from "../../src/dbConnection"; // devuelve DB
+import dbConnect from "../../utils/dbConnect"; // devuelve DB
 // Insert one quiz
 const collectionName = "users";
 

@@ -131,7 +131,7 @@ input {
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .flex {
@@ -157,8 +157,8 @@ input {
 }
 
 .users-card {
-  margin: 1rem;
-  padding: 1rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -233,7 +233,7 @@ input {
 /* new */
 .user-image {
   height: calc(100% - 6rem);
-  max-height: 300px;
+  max-height: 180px;
   width: 100%;
   object-fit: scale-down;
 }

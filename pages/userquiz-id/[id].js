@@ -16,12 +16,59 @@ import { useRouter } from "next/router";
 
 import Footer from "../../components/Footer";
 import { DrawerMenu } from "../../components/Drawer";
-import styles from "../../styles/Home.module.css";
 
 const API = "http://localhost:3000/api";
 
 const UserQuiz = ({ quizA }) => {
-  const [activeQuiz, setActiveQuiz] = useState(quizA[0] ?? {});
+  const [activeQuiz, setActiveQuiz] = useState(
+    quizA[0] ?? {
+      _id: "602fd2fe7917e0557eca29c2",
+      name: "Mongo DB",
+      id: "UQ01",
+      quizId: "Q01",
+      userId: "U01",
+      progress: 50,
+      completed: false,
+      questions: [
+        {
+          id: "01",
+          selected: "",
+          completed: false,
+          title: "Que es Mongo?",
+          answers: [
+            {
+              id: "01",
+              description: "Una base de datos",
+              isCorrect: true,
+            },
+            {
+              id: "02",
+              description: "Una libreria",
+              isCorrect: false,
+            },
+          ],
+        },
+        {
+          id: "02",
+          selected: "",
+          completed: false,
+          title: "Que es un cluster?",
+          answers: [
+            {
+              id: "01",
+              description: "Una planeta nuevo",
+              isCorrect: false,
+            },
+            {
+              id: "02",
+              description: "Un grupo de servidores",
+              isCorrect: false,
+            },
+          ],
+        },
+      ],
+    }
+  );
   const [answersObject, setAnswersObject] = useState({});
   const router = useRouter();
 
@@ -82,40 +129,40 @@ const UserQuiz = ({ quizA }) => {
 
   if (!activeQuiz) {
     return (
-      <div className={styles.container}>
-        <div className={styles.header}>
+      <div className="container">
+        <div className="header">
           <DrawerMenu />
           <Heading>Quiz not found</Heading>
           <div></div>
         </div>
-        <main className={styles.main}></main>
+        <main className="main"></main>
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Head>
         <title>Ada Quizzes</title>
         <link rel="icon" href="/adaicon.ico" />
       </Head>
-      <div className={styles.header}>
+      <div className="header">
         <DrawerMenu />
         <Heading>{activeQuiz.name}</Heading>
         <div></div>
       </div>
 
-      <main className={styles.main}>
+      <main className="main">
         {!activeQuiz.completed ? (
           <Text>Lee bien cada pregunta y selecciona una respuesta:</Text>
         ) : (
           <Text>Respuestas evaluadas del Ada Quiz {activeQuiz.name}:</Text>
         )}
-        <div className={styles.grid}>
+        <div className="grid">
           <FormControl as="fieldset">
             {activeQuiz.questions.map((question, index) => {
               return (
-                <div key={question.id} className={styles.logincard}>
+                <div key={question.id} className="logincard">
                   <FormLabel as="legend" mb={4}>
                     {index + 1}. {question.title}
                   </FormLabel>
@@ -128,20 +175,12 @@ const UserQuiz = ({ quizA }) => {
                     <Stack direction="column">
                       {question.answers.map((answer) => {
                         let icon = (
-                          <img
-                            src="/neutral.png"
-                            className={styles.marks}
-                            alt=""
-                          />
+                          <img src="/neutral.png" className="marks" alt="" />
                         );
 
                         if (answer.isSelected && answer.isCorrect) {
                           icon = (
-                            <img
-                              className={styles.marks}
-                              src="/check.png"
-                              alt=""
-                            />
+                            <img className="marks" src="/check.png" alt="" />
                           );
                         } else if (answer.isSelected && !answer.isCorrect) {
                           icon = (
@@ -154,7 +193,7 @@ const UserQuiz = ({ quizA }) => {
                         }
 
                         return (
-                          <div key={answer.id} className={styles.flex}>
+                          <div key={answer.id} className="flex">
                             {activeQuiz.completed && question.completed && icon}
 
                             <Radio key={answer.id} value={answer.id}>
@@ -199,21 +238,22 @@ export default UserQuiz;
 export async function getServerSideProps({ query }) {
   console.log("-> UserQuiz GSSP", query);
 
-  const response = await fetch(`${API}/quiz-questions-api`, {
-    body: JSON.stringify({
-      userQuizId: query.id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "PUT",
-  });
-  const json = await response.json();
+  // const response = await fetch(`${API}/quiz-questions-api`, {
+  //   body: JSON.stringify({
+  //     userQuizId: query.id,
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   method: "PUT",
+  // });
+  // const json = await response.json();
 
   return {
     props: {
       message: "server side Props",
-      quizA: json.quiz,
+      quizA: {},
+      // quizA: json.quiz,
     },
   };
 }
