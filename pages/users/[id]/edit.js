@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import UserForm from "../../components/UserForm";
+import UserForm from "../../../components/UserForm";
 
 /* retorna json.data promise*/
 const fetcher = (url) =>

@@ -19,7 +19,7 @@ export default function Home() {
   const handleAccessAllowed = (userID) => {
     console.log("-> handleAccessAllowed", userID);
     // TODO send bkend userID
-    router.push("/userquizlist");
+    router.push("/userQuizzes");
   };
   const handleLogin = async () => {
     console.log("-> handleLogin");

@@ -9,8 +9,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import Footer from "../components/Footer";
-import { DrawerMenu } from "../components/Drawer";
+import Footer from "../../components/Footer";
+import { DrawerMenu } from "../../components/Drawer";
 
 const API = "http://localhost:3000/api";
 
@@ -35,50 +35,50 @@ const QuizList = ({ quizzes }) => {
     quizzes ?? [
       {
         _id: "602fd2fe7917e0557eca29c2",
-        name: "Mongo DB",
-        id: "UQ01",
-        quizId: "Q01",
-        userId: "U01",
-        progress: 50,
         completed: false,
+        id: "UQ01",
+        name: "Mongo DB",
+        progress: 50,
         questions: [
           {
-            id: "01",
-            selected: "",
-            completed: false,
-            title: "Que es Mongo?",
             answers: [
               {
-                id: "01",
                 description: "Una base de datos",
+                id: "01",
                 isCorrect: true,
               },
               {
-                id: "02",
                 description: "Una libreria",
+                id: "02",
                 isCorrect: false,
               },
             ],
+            completed: false,
+            id: "01",
+            selected: "",
+            title: "Que es Mongo?",
           },
           {
-            id: "02",
-            selected: "",
-            completed: false,
-            title: "Que es un cluster?",
             answers: [
               {
-                id: "01",
                 description: "Una planeta nuevo",
+                id: "01",
                 isCorrect: false,
               },
               {
-                id: "02",
                 description: "Un grupo de servidores",
+                id: "02",
                 isCorrect: false,
               },
             ],
+            completed: false,
+            id: "02",
+            selected: "",
+            title: "Que es un cluster?",
           },
         ],
+        quizId: "Q01",
+        userId: "U01",
       },
       {
         _id: "6032969d2fc9a7212e3c2a52",
@@ -137,7 +137,7 @@ const QuizList = ({ quizzes }) => {
      * o llamar a pagina(componente) con el quizList[x](userquiz)
      */
     console.log("-> loadUserQuizQuestions", id);
-    router.push(`/userquiz-id/${id}`);
+    router.push(`/userQuizzes/${id}`);
   };
   // TODO el link o funcion a userquizquestions
 
@@ -165,15 +165,14 @@ const QuizList = ({ quizzes }) => {
                 key={quiz._id}
                 onClick={() => loadUserQuizQuestions(quiz.id)}
               >
-                <Link href="/">
-                  <Heading mb={0} as="h3" size="lg">
-                    {quiz.name}
-                  </Heading>
-                </Link>
+                <Heading as="h3" mb={0} size="lg">
+                  {quiz.name}
+                </Heading>
+
                 <CircularProgress
+                  color={quiz.completed ? "green.400" : "cyan.400"}
                   size="90px"
                   value={quiz.progress}
-                  color={quiz.completed ? "green.400" : "cyan.400"}
                 >
                   <CircularProgressLabel>
                     {quiz.progress}%

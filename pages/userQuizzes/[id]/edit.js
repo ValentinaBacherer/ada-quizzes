@@ -14,8 +14,8 @@ import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import Footer from "../../components/Footer";
-import { DrawerMenu } from "../../components/Drawer";
+import Footer from "../../../components/Footer";
+import { DrawerMenu } from "../../../components/Drawer";
 
 const API = "http://localhost:3000/api";
 

@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 
-import dbConnect from "../utils/dbConnect";
-import User from "../models/User";
-import Footer from "../components/Footer";
-import { DrawerMenu } from "../components/Drawer";
+import dbConnect from "../../utils/dbConnect";
+import User from "../../models/User";
+import Footer from "../../components/Footer";
+import { DrawerMenu } from "../../components/Drawer";
 
 const UsersList = ({ users }) => (
   <div className="container">
@@ -44,7 +44,7 @@ const UsersList = ({ users }) => (
           <div className="users-card" key={user._id}>
             <VStack>
               <img alt="user" className="user-image" src={user.image_url} />
-              <Link as={`/${user._id}`} href="/[id]">
+              <Link as={`/users/${user._id}`} href="/users/[id]">
                 <Heading as="h3" size="md">
                   &lt; {user.name} &#47;&gt;
                 </Heading>
@@ -79,7 +79,7 @@ const UsersList = ({ users }) => (
           </div>
         ))}
       </div>
-      <Link href="/new">
+      <Link href="/users/new">
         <Button colorScheme="cyan" width="47%">
           Nuevo Usuario
         </Button>

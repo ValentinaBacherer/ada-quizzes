@@ -17,10 +17,10 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 
-import dbConnect from "../../utils/dbConnect";
-import User from "../../models/User";
-import Footer from "../../components/Footer";
-import { DrawerMenu } from "../../components/Drawer";
+import dbConnect from "../../../utils/dbConnect";
+import User from "../../../models/User";
+import Footer from "../../../components/Footer";
+import { DrawerMenu } from "../../../components/Drawer";
 
 /* Allows you to view user card info and delete pet card*/
 const UserPage = ({ user }) => {
@@ -85,13 +85,14 @@ const UserPage = ({ user }) => {
               </UnorderedList>
 
               <Flex>
-                <Link as={`/${user._id}/edit`} href="/[id]/edit">
+                <Link as={`/users/${user._id}/edit`} href="/users/[id]/edit">
                   <Button colorScheme="cyan" width="65%">
                     Editar
                   </Button>
                 </Link>
                 <Spacer />
-                <Link as={`/${user._id}/edit`} href="/[id]/edit">
+                <Link as={`/users/${user._id}/edit`} href="/users/[id]/edit">
+                  {/* revisar */}
                   <Button
                     colorScheme="yellow"
                     onClick={handleDelete}
