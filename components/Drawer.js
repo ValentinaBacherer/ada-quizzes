@@ -26,47 +26,47 @@ export function DrawerMenu() {
   return (
     <>
       <IconButton
-        ref={btnRef}
-        variant="outline"
         aria-label="Menu"
+        border="0px"
+        color="black"
         fontSize="30px"
         icon={<BiMenu />}
-        color="black"
-        border="0px"
         onClick={onOpen}
+        ref={btnRef}
+        variant="outline"
       />
 
       <Drawer
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
         finalFocusRef={btnRef}
+        isOpen={isOpen}
+        onClose={onClose}
+        placement="left"
       >
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader display="flex" alignItems="center"></DrawerHeader>
+            <DrawerHeader alignItems="center" display="flex" />
             <DrawerBody>
-              <Stack mt={6} spacing={3} alignItems="center">
+              <Stack alignItems="center" mt={6} spacing={3}>
                 <Button
-                  w="90%"
-                  variant="outline"
-                  onClick={onClose}
                   leftIcon={<BsFillPeopleFill />}
+                  onClick={onClose}
+                  variant="outline"
+                  w="90%"
                 >
                   <Link href="/userquizlist">Lista de quizzes</Link>
                 </Button>
                 <hr />
                 <Button
-                  w="90%"
-                  variant="outline"
-                  onClick={onClose}
                   leftIcon={<BsFillPeopleFill />}
+                  onClick={onClose}
+                  variant="outline"
+                  w="90%"
                 >
                   <Link href="/users">Lista de usuarios</Link>
                 </Button>
                 <hr />
-                <Button variant="outline" w="90%" leftIcon={<BiLogOut />}>
+                <Button leftIcon={<BiLogOut />} variant="outline" w="90%">
                   <Link href="/">Logout</Link>
                 </Button>
               </Stack>

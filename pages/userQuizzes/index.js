@@ -192,8 +192,10 @@ export default QuizList;
 
 export async function getServerSideProps({ query }) {
   console.log("-> getSSP quizlist", query);
-  // TODO sacar el userID del query y pasarlo a getQuizzes
-  // const json = await getUserQuizzes();
+  /*
+   * TODO sacar el userID del query y pasarlo a getQuizzes
+   * const json = await getUserQuizzes();
+   */
 
   return {
     props: {

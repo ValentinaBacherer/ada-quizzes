@@ -26,7 +26,6 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { clearConfigCache } from "prettier";
 
 /*
  * formId to modify , userForm an object with user data

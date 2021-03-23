@@ -133,9 +133,9 @@ const UserQuiz = ({ quizA }) => {
         <div className="header">
           <DrawerMenu />
           <Heading>Quiz not found</Heading>
-          <div></div>
+          <div />
         </div>
-        <main className="main"></main>
+        <main className="main" />
       </div>
     );
   }
@@ -144,12 +144,12 @@ const UserQuiz = ({ quizA }) => {
     <div className="container">
       <Head>
         <title>Ada Quizzes</title>
-        <link rel="icon" href="/adaicon.ico" />
+        <link href="/adaicon.ico" rel="icon" />
       </Head>
       <div className="header">
         <DrawerMenu />
         <Heading>{activeQuiz.name}</Heading>
-        <div></div>
+        <div />
       </div>
 
       <main className="main">
@@ -162,38 +162,34 @@ const UserQuiz = ({ quizA }) => {
           <FormControl as="fieldset">
             {activeQuiz.questions.map((question, index) => {
               return (
-                <div key={question.id} className="logincard">
+                <div className="logincard" key={question.id}>
                   <FormLabel as="legend" mb={4}>
                     {index + 1}. {question.title}
                   </FormLabel>
                   <RadioGroup
-                    type="text"
                     name={question.id}
                     onChange={handleChange(question.id)}
+                    type="text"
                     value={selectedValue(question)} // default value?
                   >
                     <Stack direction="column">
                       {question.answers.map((answer) => {
                         let icon = (
-                          <img src="/neutral.png" className="marks" alt="" />
+                          <img alt="" className="marks" src="/neutral.png" />
                         );
 
                         if (answer.isSelected && answer.isCorrect) {
                           icon = (
-                            <img className="marks" src="/check.png" alt="" />
+                            <img alt="" className="marks" src="/check.png" />
                           );
                         } else if (answer.isSelected && !answer.isCorrect) {
                           icon = (
-                            <img
-                              className={styles.marks}
-                              src="/cross.png"
-                              alt=""
-                            />
+                            <img alt="" className="marks" src="/cross.png" />
                           );
                         }
 
                         return (
-                          <div key={answer.id} className="flex">
+                          <div className="flex" key={answer.id}>
                             {activeQuiz.completed && question.completed && icon}
 
                             <Radio key={answer.id} value={answer.id}>
@@ -213,11 +209,11 @@ const UserQuiz = ({ quizA }) => {
                   Envia las respuesta solo si estas seguro.
                 </FormHelperText>
                 <Button
-                  mt={10}
-                  w="100%"
-                  type="submit"
                   colorScheme="cyan"
+                  mt={10}
                   onClick={handleSubmit}
+                  type="submit"
+                  w="100%"
                 >
                   Enviar
                 </Button>{" "}
@@ -238,16 +234,18 @@ export default UserQuiz;
 export async function getServerSideProps({ query }) {
   console.log("-> UserQuiz GSSP", query);
 
-  // const response = await fetch(`${API}/quiz-questions-api`, {
-  //   body: JSON.stringify({
-  //     userQuizId: query.id,
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   method: "PUT",
-  // });
-  // const json = await response.json();
+  /*
+   * const response = await fetch(`${API}/quiz-questions-api`, {
+   *   body: JSON.stringify({
+   *     userQuizId: query.id,
+   *   }),
+   *   headers: {
+   *     "Content-Type": "application/json",
+   *   },
+   *   method: "PUT",
+   * });
+   * const json = await response.json();
+   */
 
   return {
     props: {
