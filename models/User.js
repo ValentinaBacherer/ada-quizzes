@@ -11,11 +11,13 @@ const UserSchema = new mongoose.Schema(
       default: 10,
       type: Number,
     },
-    // createdAtDate: {
-    //   default: Date.now,
-    //   required: true,
-    //   type: Date,
-    // },
+    /*
+     * createdAtDate: {
+     *   default: Date.now,
+     *   required: true,
+     *   type: Date,
+     * },
+     */
     dislikes: {
       /* List of things user does not like to do */
       type: Array,

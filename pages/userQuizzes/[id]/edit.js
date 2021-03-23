@@ -31,40 +31,40 @@ const UserQuiz = ({ quizA }) => {
       completed: false,
       questions: [
         {
-          id: "01",
-          selected: "",
-          completed: false,
-          title: "Que es Mongo?",
           answers: [
             {
-              id: "01",
               description: "Una base de datos",
+              id: "01",
               isCorrect: true,
             },
             {
-              id: "02",
               description: "Una libreria",
+              id: "02",
               isCorrect: false,
             },
           ],
+          completed: false,
+          id: "01",
+          selected: "",
+          title: "Que es Mongo?",
         },
         {
-          id: "02",
-          selected: "",
-          completed: false,
-          title: "Que es un cluster?",
           answers: [
             {
-              id: "01",
               description: "Una planeta nuevo",
+              id: "01",
               isCorrect: false,
             },
             {
-              id: "02",
               description: "Un grupo de servidores",
+              id: "02",
               isCorrect: false,
             },
           ],
+          completed: false,
+          id: "02",
+          selected: "",
+          title: "Que es un cluster?",
         },
       ],
     }
