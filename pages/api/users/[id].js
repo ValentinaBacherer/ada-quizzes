@@ -20,6 +20,13 @@ export default async function handler(req, res) {
           return res.status(400).json({ success: false });
         }
 
+        user.createdAt = user.createdAt
+          ? user.createdAt.toISOString().split("T")[0]
+          : "";
+        user.updatedAt = user.updatedtedAt
+          ? user.updatedtedAt.toISOString()
+          : "".split("T")[0];
+
         res.status(200).json({
           data: user,
           success: true,

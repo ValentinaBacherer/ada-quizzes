@@ -1,5 +1,3 @@
-import "../css/style.css";
-import "../css/form.css";
 import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 

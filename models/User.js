@@ -4,9 +4,11 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema(
   {
     ada_student: {
+      default: false,
       type: Boolean,
     },
     age: {
+      default: 10,
       type: Number,
     },
     // createdAtDate: {
@@ -20,6 +22,7 @@ const UserSchema = new mongoose.Schema(
     },
     image_url: {
       /* Url to user's image */
+      default: '',
       required: [true, 'Please provide an image url for this user.'],
       type: String,
     },
@@ -32,16 +35,19 @@ const UserSchema = new mongoose.Schema(
       type: Array,
     },
     name: {
+      default: '',
       maxlength: [20, 'Name cannot be more than 20 characters'],
       required: [true, 'Please provide a name'],
       type: String,
     },
     organization: {
+      default: '',
       maxlength: [30, 'Organizations cannot be more than 30 characters'],
       required: [true, 'Please specify your organization name.'],
       type: String,
     },
     password: {
+      default: '',
       maxlength: [20, 'Password cannot be more than 20 characters'],
       required: [true, 'Please provide a password'],
       type: String,

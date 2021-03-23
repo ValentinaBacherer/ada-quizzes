@@ -24,10 +24,10 @@ export default function Home() {
   const handleLogin = async () => {
     console.log("-> handleLogin");
 
-    if (userName) {
+    if (!userName) {
       handleAccessAllowed();
     } else {
-      const response = await fetch(`${API}/login-api`, {
+      const response = await fetch(`${API}/users/login`, {
         body: JSON.stringify({
           password: userPassword,
           user: userName,
@@ -42,7 +42,7 @@ export default function Home() {
       console.log("handleLogin response:", json);
 
       if (json.access) {
-        handleAccessAllowed(json.user[0].id);
+        handleAccessAllowed(json.user.id);
       } else {
         handleAccessError();
       }
@@ -76,8 +76,8 @@ export default function Home() {
             <Input
               name="user-password"
               onChange={(e) => setUserPassword(e.target.value)}
-              placeholder="Password"
-              type="password"
+              placeholder="contrasena"
+              type="text"
               value={userPassword}
             />
             <Text>{errorText}</Text>

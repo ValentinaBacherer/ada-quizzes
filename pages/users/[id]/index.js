@@ -118,6 +118,12 @@ export async function getServerSideProps({ params }) {
   const user = await User.findById(params.id).lean();
 
   user._id = user._id.toString();
+  user.createdAt = user.createdAt
+    ? user.createdAt.toISOString().split("T")[0]
+    : "";
+  user.updatedAt = user.updatedtedAt
+    ? user.updatedtedAt.toISOString()
+    : "".split("T")[0];
 
   return { props: { user } };
 }

@@ -1,8 +1,32 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-unused-expressions */
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
+import {
+  Button,
+  Stack,
+  Spacer,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  CheckboxGroup,
+  Checkbox,
+  HStack,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
+import { clearConfigCache } from "prettier";
 
 /*
  * formId to modify , userForm an object with user data
@@ -14,6 +38,7 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
 
+  console.log("User en userForm:", userForm);
   const [form, setForm] = useState({
     ada_student: userForm.ada_student,
     age: userForm.age,
@@ -26,7 +51,9 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
     password: userForm.password,
   });
 
+  console.log(form);
   /* The PUT method edits an existing entry in the mongodb database. */
+
   const putData = async (formPut) => {
     const { id } = router.query;
 
@@ -110,102 +137,141 @@ const UserForm = ({ formId, userForm, forNewUser = true }) => {
     if (Object.keys(errs).length === 0) {
       forNewUser ? postData(form) : putData(form);
     } else {
-      setErrors({ errs });
+      setErrors(errs);
     }
   };
 
   return (
     <>
-      <form id={formId} onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          maxLength="20"
-          name="name"
-          onChange={handleChange}
-          required
-          type="text"
-          value={form.name}
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          maxLength="20"
-          name="password"
-          onChange={handleChange}
-          required
-          type="text"
-          value={form.password}
-        />
-
-        <label htmlFor="organization">Organization</label>
-        <input
-          maxLength="30"
-          name="organization"
-          onChange={handleChange}
-          required
-          type="text"
-          value={form.organization}
-        />
-
-        <label htmlFor="age">Age</label>
-        <input
-          name="age"
-          onChange={handleChange}
-          type="number"
-          value={form.age}
-        />
-
-        <label htmlFor="ada_student">Ada Student</label>
-        <input
-          checked={form.ada_student}
-          name="ada_student"
-          onChange={handleChange}
-          type="checkbox"
-        />
-
-        <label htmlFor="languages">Languages</label>
-        <textarea
-          maxLength="60"
-          name="languages"
-          onChange={handleChange}
-          value={form.languages}
-        />
-
-        <label htmlFor="image_url">Image URL</label>
-        <input
-          name="image_url"
-          onChange={handleChange}
-          required
-          type="url"
-          value={form.image_url}
-        />
-
-        <label htmlFor="likes">Likes</label>
-        <textarea
-          maxLength="60"
-          name="likes"
-          onChange={handleChange}
-          value={form.likes}
-        />
-
-        <label htmlFor="dislikes">Dislikes</label>
-        <textarea
-          maxLength="60"
-          name="dislikes"
-          onChange={handleChange}
-          value={form.dislikes}
-        />
-
-        <button className="btn" type="submit">
+      <FormControl id={formId} onSubmit={handleSubmit}>
+        <Stack spacing={3}>
+          <InputGroup>
+            <InputLeftAddon children="Name" w="130px" />
+            <Input
+              id="name"
+              maxLength="20"
+              name="name"
+              onChange={handleChange}
+              placeholder="user name"
+              required
+              type="text"
+              value={form.name}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Password" w="130px" />
+            <Input
+              maxLength="20"
+              name="password"
+              onChange={handleChange}
+              placeholder="password"
+              required
+              type="text"
+              value={form.password}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Organization" w="130px" />
+            <Input
+              maxLength="30"
+              name="organization"
+              onChange={handleChange}
+              placeholder="user organization"
+              required
+              type="text"
+              value={form.organization}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Age" w="130px" />
+            <NumberInput max={120} min={10}>
+              <NumberInputField
+                maxWidth="47vw"
+                name="user age"
+                onChange={handleChange}
+                placeholder="user age"
+                required
+                type="number"
+                value={form.age}
+                width="28.7rem"
+              />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </InputGroup>
+          <CheckboxGroup colorScheme="cyan">
+            <HStack>
+              <Spacer />
+              <Checkbox
+                checked={form.ada_student}
+                name="ada_student"
+                onChange={handleChange}
+                type="checkbox"
+              >
+                Ada Student
+              </Checkbox>
+              <Spacer />
+            </HStack>
+          </CheckboxGroup>
+          <InputGroup>
+            <InputLeftAddon children="Languages" w="130px" />
+            <Input
+              maxLength="60"
+              name="languages"
+              onChange={handleChange}
+              placeholder="user languages"
+              type="text"
+              value={form.languages}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Image URL" w="130px" />
+            <Input
+              maxLength="150"
+              name="image_url"
+              onChange={handleChange}
+              placeholder="user image URL"
+              type="url"
+              value={form.image_url}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Likes/hobbies" height="20" w="130px" />
+            <Textarea
+              name="likes"
+              onChange={handleChange}
+              placeholder="Write here users preferences..."
+              value={form.likes}
+            />
+          </InputGroup>
+          <InputGroup>
+            <InputLeftAddon children="Dislikes" height="20" w="130px" />
+            <Textarea
+              name="dislikes"
+              onChange={handleChange}
+              placeholder="Write here users preferences..."
+              value={form.dislikes}
+            />
+          </InputGroup>
+        </Stack>
+        <Button
+          colorScheme="cyan"
+          mt="5"
+          onClick={handleSubmit}
+          type="submit"
+          width="100%"
+        >
           Submit
-        </button>
-      </form>
-      <p>{message}</p>
-      <div>
+        </Button>
+      </FormControl>
+      <Text>{message}</Text>
+      <Text>
         {Object.keys(errors).map((err, index) => (
           <li key={index}>{err}</li>
         ))}
-      </div>
+      </Text>
     </>
   );
 };

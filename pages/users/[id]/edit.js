@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import Head from "next/head";
+import { Heading } from "@chakra-ui/react";
 
 import UserForm from "../../../components/UserForm";
+import { DrawerMenu } from "../../../components/Drawer";
+import Footer from "../../../components/Footer";
 
 /* retorna json.data promise*/
 const fetcher = (url) =>
@@ -36,7 +40,27 @@ const EditUser = () => {
   };
 
   return (
-    <UserForm forNewUser={false} formId="edit-user-form" userForm={userForm} />
+    <div className="container">
+      <Head>
+        <title>Ada Users</title>
+        <link href="/adaicon.ico" rel="icon" />
+      </Head>
+      <div className="header">
+        <DrawerMenu />
+        <Heading>Editar usuario</Heading>
+        <div />
+      </div>
+      <div className="main">
+        <div className="logincard form">
+          <UserForm
+            forNewUser={false}
+            formId="edit-user-form"
+            userForm={userForm}
+          />
+        </div>
+      </div>
+      <Footer />
+    </div>
   );
 };
 

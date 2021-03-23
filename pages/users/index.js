@@ -43,11 +43,13 @@ const UsersList = ({ users }) => (
         {users.map((user) => (
           <div className="users-card" key={user._id}>
             <VStack>
-              <img alt="user" className="user-image" src={user.image_url} />
               <Link as={`/users/${user._id}`} href="/users/[id]">
-                <Heading as="h3" size="md">
-                  &lt; {user.name} &#47;&gt;
-                </Heading>
+                <div className="link">
+                  <img alt="user" className="user-image" src={user.image_url} />
+                  <Heading as="h3" size="md">
+                    &lt; {user.name} &#47;&gt;
+                  </Heading>
+                </div>
               </Link>
 
               {/* Extra User Info: Likes and Dislikes
@@ -113,6 +115,13 @@ export async function getServerSideProps() {
 
     console.log("type of user", typeof user, user);
     user._id = user._id.toString();
+
+    user.createdAt = user.createdAt
+      ? user.createdAt.toISOString().split("T")[0]
+      : "";
+    user.updatedAt = user.updatedtedAt
+      ? user.updatedtedAt.toISOString()
+      : "".split("T")[0];
 
     return user;
   });
