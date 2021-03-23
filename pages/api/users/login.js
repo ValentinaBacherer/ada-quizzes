@@ -2,10 +2,15 @@ import dbConnect from "../../../utils/dbConnect";
 import User from "../../../models/User";
 
 export default async (req, res) => {
+  await dbConnect();
+
   try {
+    console.log("API login");
     const user = await User.findOne({
       name: req.body.user,
     });
+
+    console.log(user);
 
     if (user.password === req.body.password) {
       user.createdAt = user.createdAt
