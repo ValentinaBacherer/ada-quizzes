@@ -27,7 +27,7 @@ export default function Home() {
     if (!userName) {
       handleAccessAllowed();
     } else {
-      const response = await fetch(`${API}/users/login`, {
+      const response = await fetch(`/api/users/login`, {
         body: JSON.stringify({
           password: userPassword,
           user: userName,
