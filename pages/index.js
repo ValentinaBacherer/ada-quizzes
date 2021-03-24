@@ -77,7 +77,7 @@ export default function Home() {
               name="user-password"
               onChange={(e) => setUserPassword(e.target.value)}
               placeholder="contrasena"
-              type="text"
+              type="password"
               value={userPassword}
             />
             <Text>{errorText}</Text>
