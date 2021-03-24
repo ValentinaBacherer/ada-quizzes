@@ -18,36 +18,38 @@ import {
 } from "@chakra-ui/react";
 
 import dbConnect from "../../../utils/dbConnect";
-import User from "../../../models/User";
+import Quiz from "../../../models/Quiz";
 import Footer from "../../../components/Footer";
+import SelectAnswer from "../../../components/SelectAnswer";
 import { DrawerMenu } from "../../../components/Drawer";
 
 /* Allows you to view user card info and delete pet card*/
-const UserPage = ({ user }) => {
+const QuizPage = ({ quiz }) => {
   const router = useRouter();
   const [message, setMessage] = useState("");
+
   const handleDelete = async () => {
-    const userID = router.query.id;
+    const quizID = router.query.id;
 
     try {
-      await fetch(`/api/users/${userID}`, {
+      await fetch(`/api/quizzes/${quizID}`, {
         method: "Delete",
       });
-      router.push("/users");
+      router.push("/quizzes");
     } catch (error) {
-      setMessage("Failed to delete the user.");
+      setMessage("Failed to delete the quiz.");
     }
   };
 
   return (
-    <div className="container" key={user._id}>
+    <div className="container" key={quiz._id}>
       <Head>
-        <title>Ada Users</title>
+        <title>Ada Quizzes</title>
         <link href="/adaicon.ico" rel="icon" />
       </Head>
       <div className="header">
         <DrawerMenu />
-        <Heading>Datos de usuario</Heading>
+        <Heading>Datos de Quizz</Heading>
         <div />
       </div>
       <div className="main">
@@ -55,37 +57,27 @@ const UserPage = ({ user }) => {
           <div className="logincard">
             <VStack>
               <Heading as="h2" size="lg">
-                {user.name}
+                {quiz.title}
               </Heading>
-              <img alt="user" className="user-image" src={user.image_url} />
             </VStack>
             <VStack align="left">
-              <Text fontSize="lg">password: {user.password}</Text>
+              <Text fontSize="lg">Difficulty: {quiz.difficulty}</Text>
               <Heading as="h2" size="md">
                 Likes
               </Heading>
-
-              <UnorderedList>
-                {user.likes.map((data, index) => (
-                  <ListItem key={index} mx="5%">
-                    {data}{" "}
-                  </ListItem>
-                ))}
-              </UnorderedList>
-
-              <Heading as="h2" size="md">
-                Dislikes
-              </Heading>
-              <UnorderedList>
-                {user.dislikes.map((data, index) => (
-                  <ListItem key={index} mx="5%">
-                    {data}
-                  </ListItem>
-                ))}
-              </UnorderedList>
-
+              <SelectAnswer
+                groupName="¿Que es React?"
+                options={[
+                  "Una nueva moda",
+                  "Una libreria para nodejs",
+                  "Un framework de trabajo",
+                ]}
+              />
               <Flex>
-                <Link as={`/users/${user._id}/edit`} href="/users/[id]/edit">
+                <Link
+                  as={`/quizzes/${quiz._id}/edit`}
+                  href="/quizzes/[id]/edit"
+                >
                   <Button colorScheme="cyan" width="65%">
                     Editar
                   </Button>
@@ -110,17 +102,17 @@ const UserPage = ({ user }) => {
 export async function getServerSideProps({ params }) {
   await dbConnect();
 
-  const user = await User.findById(params.id).lean();
+  const quiz = await Quiz.findById(params.id).lean();
 
-  user._id = user._id.toString();
-  user.createdAt = user.createdAt
-    ? user.createdAt.toISOString().split("T")[0]
+  quiz._id = quiz._id.toString();
+  quiz.createdAt = quiz.createdAt
+    ? quiz.createdAt.toISOString().split("T")[0]
     : "";
-  user.updatedAt = user.updatedtedAt
-    ? user.updatedtedAt.toISOString()
+  quiz.updatedAt = quiz.updatedtedAt
+    ? quiz.updatedtedAt.toISOString()
     : "".split("T")[0];
 
-  return { props: { user } };
+  return { props: { quiz } };
 }
 
-export default UserPage;
+export default QuizPage;

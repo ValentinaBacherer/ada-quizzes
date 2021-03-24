@@ -82,12 +82,12 @@ const QuizList = ({ quizzes }) => {
       },
       {
         _id: "6032969d2fc9a7212e3c2a52",
-        name: "Next JS",
+        completed: false,
         id: "UQ02",
+        name: "Next JS",
+        progress: 70,
         quizId: "Q02",
         userId: "U01",
-        progress: 70,
-        completed: false,
         questions: [
           {
             id: "01",
@@ -108,22 +108,22 @@ const QuizList = ({ quizzes }) => {
             ],
           },
           {
-            id: "02",
-            selected: "",
-            title: "Que es un ServerSideProps?",
-            completed: false,
             answers: [
               {
-                id: "01",
                 description: "Una planeta nuevo",
+                id: "01",
                 isCorrect: false,
               },
               {
-                id: "02",
                 description: "Un grupo de servidores",
+                id: "02",
                 isCorrect: true,
               },
             ],
+            completed: false,
+            id: "02",
+            selected: "",
+            title: "Que es un ServerSideProps?",
           },
         ],
       },
@@ -137,7 +137,7 @@ const QuizList = ({ quizzes }) => {
      * o llamar a pagina(componente) con el quizList[x](userquiz)
      */
     console.log("-> loadUserQuizQuestions", id);
-    router.push(`/userQuizzes/${id}`);
+    router.push(`/userQuizzes/${id}/edit`);
   };
   // TODO el link o funcion a userquizquestions
 
@@ -149,7 +149,7 @@ const QuizList = ({ quizzes }) => {
       </Head>
       <div className="header">
         <DrawerMenu />
-        <Heading>Lista de Quizzes</Heading>
+        <Heading>User Quizzes</Heading>
         <div />
       </div>
 
@@ -161,7 +161,7 @@ const QuizList = ({ quizzes }) => {
           {quizList.map((quiz) => {
             return (
               <div
-                className="card"
+                className="card link"
                 key={quiz._id}
                 onClick={() => loadUserQuizQuestions(quiz.id)}
               >

@@ -54,7 +54,7 @@ export function DrawerMenu() {
                   variant="outline"
                   w="90%"
                 >
-                  <Link href="/userquizlist">Lista de quizzes</Link>
+                  <Link href="/quizzes">Lista de quizzes</Link>
                 </Button>
                 <hr />
                 <Button

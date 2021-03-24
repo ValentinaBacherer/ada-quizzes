@@ -1,12 +1,54 @@
 import mongoose from 'mongoose';
 
+const selectAnswerSchema = new mongoose.Schema({
+  isCorrect: {
+    default: false,
+    type: Boolean,
+  },
+  isSelected: {
+    default: false,
+    type: Boolean,
+  },
+  title: {
+    default: '',
+    required: true,
+    type: String,
+  },
+});
+const selectQuestionSchema = new mongoose.Schema({
+  answers: [selectAnswerSchema],
+  isAnswered: {
+    default: false,
+    type: Boolean,
+  },
+  isCorrect: {
+    default: false,
+    type: Boolean,
+  },
+  title: {
+    default: '',
+    type: String,
+  },
+});
+
 const quizSchema = new mongoose.Schema(
   {
-    difficult: {
+    difficulty: {
+      default: '',
       required: true,
       type: String,
     },
-    name: {
+    isCompleted: {
+      default: false,
+      type: Boolean,
+    },
+    progress: {
+      default: 0,
+      type: Number,
+    },
+    questions: [selectQuestionSchema],
+    title: {
+      default: '',
       required: true,
       type: String,
     },
@@ -16,4 +58,4 @@ const quizSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model.Quiz || mongoose.model('Quiz', quizSchema);
+export default mongoose.models.Quiz || mongoose.model('Quiz', quizSchema);
