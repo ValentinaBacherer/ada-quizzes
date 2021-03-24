@@ -20,7 +20,7 @@ import {
 import dbConnect from "../../../utils/dbConnect";
 import Quiz from "../../../models/Quiz";
 import Footer from "../../../components/Footer";
-import SelectAnswer from "../../../components/SelectAnswer";
+import SelectQuestion from "../../../components/SelectQuestion";
 import { DrawerMenu } from "../../../components/Drawer";
 
 /* Allows you to view user card info and delete pet card*/
@@ -59,20 +59,38 @@ const QuizPage = ({ quiz }) => {
               <Heading as="h2" size="lg">
                 {quiz.title}
               </Heading>
+              <Text fontSize="lg">Difficulty: {quiz.difficulty}</Text>
             </VStack>
             <VStack align="left">
-              <Text fontSize="lg">Difficulty: {quiz.difficulty}</Text>
-              <Heading as="h2" size="md">
-                Likes
+              <Heading as="h2" mt="30" size="md">
+                Answer the following questions:
               </Heading>
-              <SelectAnswer
-                groupName="¿Que es React?"
-                options={[
-                  "Una nueva moda",
-                  "Una libreria para nodejs",
-                  "Un framework de trabajo",
-                ]}
-              />
+              {quiz.questions?.map((question) => {
+                console.log("question", question);
+                const answersArray = question.answers.map(
+                  (answer) => answer.title
+                );
+
+                console.log("->answer Array", answersArray);
+
+                return (
+                  <SelectQuestion
+                    key={question._id}
+                    options={answersArray}
+                    question={question.title}
+                  />
+                );
+              })}
+              {!quiz.questions?.length && (
+                <SelectQuestion
+                  options={[
+                    "Una nueva moda",
+                    "Una libreria para nodejs",
+                    "Un framework de trabajo",
+                  ]}
+                  question="¿Que es React?"
+                />
+              )}
               <Flex>
                 <Link
                   as={`/quizzes/${quiz._id}/edit`}
@@ -111,6 +129,12 @@ export async function getServerSideProps({ params }) {
   quiz.updatedAt = quiz.updatedtedAt
     ? quiz.updatedtedAt.toISOString()
     : "".split("T")[0];
+  quiz.questions?.map((question) => {
+    question._id = question._id.toString();
+    question?.answers?.map((answer) => {
+      answer._id = answer._id.toString();
+    });
+  });
 
   return { props: { quiz } };
 }

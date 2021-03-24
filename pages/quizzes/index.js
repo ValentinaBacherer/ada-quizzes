@@ -104,8 +104,6 @@ export async function getServerSideProps() {
 
   /* create an array with all the docs (typeof doc = object)of the collection converted to objects */
   const quizzes = result?.map((doc) => {
-    console.log("Type of doc", typeof doc);
-
     /*
      * toObject() Returns an object with each property name
      * and value corresponding to the entries in this collection.
@@ -122,6 +120,13 @@ export async function getServerSideProps() {
     quiz.updatedAt = quiz.updatedtedAt
       ? quiz.updatedtedAt.toISOString()
       : "".split("T")[0];
+
+    quiz.questions?.map((question) => {
+      question._id = question._id.toString();
+      question?.answers?.map((answer) => {
+        answer._id = answer._id.toString();
+      });
+    });
 
     return quiz;
   });

@@ -27,7 +27,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 
-import SelectAnswer from "./SelectAnswer";
+import SelectQuestion from "./SelectQuestion";
 
 /*
  * formId to modify , userForm an object with user data
@@ -52,10 +52,41 @@ const QuizForm = ({ formId, quizForm, forNewQuiz = true }) => {
 
   const putData = async (formPut) => {
     const { id } = router.query;
+    const newForm = {
+      ...formPut,
+      questions: [
+        {
+          answers: [
+            { title: "Un lugar para comprar utiles escolares" },
+            {
+              isCorrect: true,
+              title:
+                "A collection of non-volatile resources used by computer programs.",
+            },
+            { title: "Una machacadora de papel" },
+          ],
+          title: "¿Que es una libreria?",
+        },
+        {
+          answers: [
+            { title: "Una applicacion para la interfase" },
+            {
+              isCorrect: true,
+              title:
+                "An abstraction in which software providing generic functionality can be selectively changed.",
+            },
+            { title: "Un lugar de trabajo con una ventana" },
+          ],
+          title: "¿Que es un framework?",
+        },
+      ],
+    };
+
+    console.log("->Actualiza Quiz", newForm);
 
     try {
       const res = await fetch(`/api/quizzes/${id}`, {
-        body: JSON.stringify(formPut),
+        body: JSON.stringify(newForm),
         headers: {
           Accept: contentType,
           "Content-Type": contentType,
@@ -160,13 +191,13 @@ const QuizForm = ({ formId, quizForm, forNewQuiz = true }) => {
               value={form.difficulty}
             />
           </InputGroup>
-          <SelectAnswer
-            groupName="¿Que es React?"
+          <SelectQuestion
             options={[
               "Una nueva moda",
               "Una libreria para nodejs",
               "Un framework de trabajo",
             ]}
+            question="¿Que es React?"
           />
         </Stack>
         <Button

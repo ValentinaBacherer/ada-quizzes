@@ -25,7 +25,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const SelectAnswer = ({ groupName, options }) => {
+const SelectQuestion = ({ question, options }) => {
   const [selectedValue, setSelectedValue] = useState("");
 
   console.log("->Select options", options);
@@ -38,10 +38,8 @@ const SelectAnswer = ({ groupName, options }) => {
 
   return (
     <>
-      <Heading size="sm">
-        {groupName}: {selectedValue}
-      </Heading>
-      <RadioGroup>
+      <Heading size="sm">{question}</Heading>
+      <RadioGroup m="25px">
         <Stack spacing={3}>
           {options.map((option, index) => {
             return (
@@ -49,7 +47,7 @@ const SelectAnswer = ({ groupName, options }) => {
                 checked={selectedValue === option}
                 colorScheme="cyan"
                 key={index}
-                name={groupName}
+                name={question}
                 onChange={handleChange}
                 value={option}
               >
@@ -63,4 +61,4 @@ const SelectAnswer = ({ groupName, options }) => {
   );
 };
 
-export default SelectAnswer;
+export default SelectQuestion;
